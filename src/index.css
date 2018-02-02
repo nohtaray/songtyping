@@ -1,0 +1,46 @@
+body {
+  color: #333333;
+}
+
+#root {
+  margin: 20px;
+  padding: 30px;
+}
+
+.lyric_box {
+  margin: 30px 0;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 600px;
+}
+
+.keys_box {
+  margin: 30px 0;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 600px;
+
+  font-size: 25px;
+  letter-spacing: 0.1rem;
+}
+
+.lyric_row {
+  padding-bottom: 15px;
+}
+
+.lyric_done, .keys_done {
+  color: lightgray;
+}
+
+.lyric_remains, .keys_remains {
+}
+
+.lyric_row_kanji {
+  font-size: 26px;
+}
+
+.lyric_row_hiragana {
+  font-size: 19px;
+}
