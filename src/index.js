@@ -37,12 +37,10 @@ class Game extends React.Component {
       keysPos: 0,
       keys: '',
     };
+  }
 
-    // マウントされるまでちょっと待つ。
-    // TODO: ボタンかなにかをトリガにする
-    setTimeout(() => {
-      this.startRowTypingIfNeeded();
-    }, 100);
+  componentDidMount() {
+    this.startRowTypingIfNeeded();
   }
 
   startRowTypingIfNeeded() {
