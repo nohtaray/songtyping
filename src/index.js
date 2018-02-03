@@ -95,11 +95,44 @@ class Game extends React.Component {
   }
 }
 
+const audioSrc = '/audio/romeo_and_cinderella.mp3';
+
+class AudioPlayer extends React.Component {
+  static propTypes = {
+    src: PropTypes.string.isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.audio = null;
+  }
+
+  handleCanPlayThrough() {
+    // this.audio.play();
+  }
+
+  render() {
+    return (
+        <div>
+          <audio
+              src={this.props.src}
+              onCanPlayThrough={() => this.handleCanPlayThrough()}
+              ref={ref => {this.audio = ref;}}>
+          </audio>
+        </div>
+    );
+  }
+}
+
 // ========================================
 
 ReactDOM.render(
     (
-        <Game lyricPages={lyricPages} />
+        <div>
+          <Game lyricPages={lyricPages} />
+          <AudioPlayer src={audioSrc} />
+        </div>
     ),
     document.getElementById('root'),
 );
