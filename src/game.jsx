@@ -61,16 +61,14 @@ class Game extends React.Component {
   handleLoadLyric(lyrics) {
     this.setState({lyricPages: lyrics});
 
-    lyrics.slice(1).map(p => p.time).forEach(time => {
+    lyrics.map(p => p.time).forEach((time, i) => {
       setTimeout(() => {
         this.setState({
-          pageCount: this.state.pageCount + 1,
+          pageCount: i,
         });
         this.handleChangePage();
       }, time);
     });
-
-    this.startRowTypingIfNeeded();
   }
 
   handleChangePage() {
