@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {KeysBox, LyricBox} from './components.jsx';
 import {LyricLoader} from './LyricLoader.jsx';
+import {AudioLoader} from './AudioLoader';
 
 const tsuikyo = new window.Tsuikyo({flex: 'flex', prevent: true, im: 'roma'});
 tsuikyo.listen();
@@ -9,6 +10,7 @@ tsuikyo.listen();
 class Game extends React.Component {
   static propTypes = {
     lyricSrc: PropTypes.string.isRequired,
+    audioSrc: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -103,6 +105,9 @@ class Game extends React.Component {
           <LyricLoader
               src={this.props.lyricSrc}
               onLoad={(lyric) => this.handleLoadLyric(lyric)} />
+          <AudioLoader
+              src={this.props.audioSrc}
+              onLoad={(audio) => audio.play()} />
         </div>
     );
   }
