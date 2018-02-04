@@ -62,12 +62,12 @@ class LyricBox extends React.Component {
   };
 
   render() {
-    const lyricRows = [...Array(4)].map((_, i) => {
+    const lyricRows = this.props.lyrics.map((lyric, i) => {
       return (
           <LyricRow
               key={i}
-              kanji={this.props.lyrics[i].kanji}
-              hiragana={this.props.lyrics[i].hiragana}
+              kanji={lyric.kanji}
+              hiragana={lyric.hiragana}
               charPos={this.props.charPoses[i]} />
       );
     });
