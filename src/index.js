@@ -79,15 +79,17 @@ class Game extends React.Component {
 
   render() {
     return (
-        <div className="game">
-          <LyricBox
-              lyrics={this.props.lyricPages[this.state.pageCount].lyrics}
-              charPoses={this.state.lyricPageCharPoses}
-          />
-          <KeysBox
-              keys={this.state.keys}
-              charPos={this.state.keysPos}
-          />
+        <div className="game_wrapper">
+          <div className="game">
+            <LyricBox
+                lyrics={this.props.lyricPages[this.state.pageCount].lyrics}
+                charPoses={this.state.lyricPageCharPoses}
+            />
+            <KeysBox
+                keys={this.state.keys}
+                charPos={this.state.keysPos}
+            />
+          </div>
         </div>
     );
   }

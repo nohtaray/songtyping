@@ -1,46 +1,104 @@
+/*
+TODO: vw 指定のやつを game 要素のサイズに合わせて自動調整する。横 > 縦のときにうまく動いてない
+*/
+
+@font-face {
+  font-family: "PixelMplus12-Regular.ttf";
+  src: url("/font/PixelMplus12-Regular.ttf");
+}
+
 body {
+  font-family: "PixelMplus12-Regular.ttf";
   color: #333333;
+
+  /* 赤 */
+  color: #ff5150;
+  /* オレンジ（薄） */
+  /*color: #ffc686;*/
+  /* 緑 */
+  /*color: #2bff70;*/
 }
 
 #root {
-  margin: 20px;
-  padding: 30px;
+  background: url("/img/background.jpg") no-repeat center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+/*
+アス比固定
+https://qiita.com/ryounagaoka/items/a98f59347ed758743b8d#div%E3%82%84p%E3%81%AA%E3%81%A9%E3%81%AE%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E8%A6%81%E7%B4%A0%E3%81%AE%E5%A0%B4%E5%90%88
+*/
+.game_wrapper {
+  position: relative;
+  width: 100%;
+  margin: auto;
+
+  max-height: 100vh;
+  max-width: 160vh;
+}
+
+.game_wrapper:before {
+  content: "";
+  display: block;
+  /* 16:10 */
+  padding-top: 62.5%;
+}
+
+.game {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  background: url("/img/frame_red.png") no-repeat top left, url("/img/frame.png") no-repeat top left;
+  background-size: contain;
 }
 
 .lyric_box {
-  margin: 30px 0;
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 4px;
-  width: 600px;
+  position: absolute;
+  box-sizing: border-box;
+  left: 6.7%;
+  top: 16.2%;
+  width: 55.2%;
+  height: 39.4%;
+
+  font-size: 30px;
+  padding: 1vw;
 }
 
 .keys_box {
-  margin: 30px 0;
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 4px;
-  width: 600px;
+  position: absolute;
+  box-sizing: border-box;
+  left: 6.7%;
+  top: 56.7%;
+  width: 55.2%;
+  height: 8%;
 
-  font-size: 25px;
+  font-size: 2.5vw;
+
   letter-spacing: 0.1rem;
+  padding: 1vw;
+  vertical-align: bottom;
 }
 
 .lyric_row {
-  padding-bottom: 15px;
+  padding-bottom: 1vw;
 }
 
 .lyric_done, .keys_done {
-  color: lightgray;
+  color: white;
 }
 
 .lyric_remains, .keys_remains {
 }
 
 .lyric_row_kanji {
-  font-size: 26px;
+  font-size: 2.5vw;
 }
 
 .lyric_row_hiragana {
-  font-size: 19px;
+  font-size: 1.8vw;
 }
