@@ -22,7 +22,7 @@ class LyricLoader extends React.Component {
 
     return [].map.call(pages, (page) => {
           window.page = page;
-          const time = page.querySelector('time').textContent * 10;
+          const time = page.querySelector('time').textContent * 100;
           const kanjiStr = page.querySelector('lyric').textContent;
           const hiraganaStr = page.querySelector('lyric_type').textContent;
 

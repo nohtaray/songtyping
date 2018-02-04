@@ -59,8 +59,28 @@ class Game extends React.Component {
   }
 
   handleLoadLyric(lyrics) {
-    // this.setState({lyricPages: lyrics});
-    this.setState({lyricPages: lyrics.slice(1)});
+    this.setState({lyricPages: lyrics});
+
+    lyrics.slice(1).map(p => p.time).forEach(time => {
+      setTimeout(() => {
+        this.setState({
+          pageCount: this.state.pageCount + 1,
+        });
+        this.handleChangePage();
+      }, time);
+    });
+
+    this.startRowTypingIfNeeded();
+  }
+
+  handleChangePage() {
+    this.setState({
+      lyricPageCharPoses: Array(4).fill(0),
+      rowCount: 0,
+      keysPos: 0,
+      keys: '',
+    });
+    tsuikyo.words().forEach(w => w.sleep());
 
     this.startRowTypingIfNeeded();
   }
