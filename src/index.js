@@ -22,7 +22,7 @@ ReactDOM.render(
             <App />
           </Provider>
           {/* あとで消す */}
-          <Game lyricSrc={lyricSrc} audioSrc={audioSrc} />
+          {/*<Game lyricSrc={lyricSrc} audioSrc={audioSrc} />*/}
         </div>
     ),
     document.getElementById('root'),
