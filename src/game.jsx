@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {KeysBox, LyricBox} from './components.jsx';
 import {LyricLoader} from './LyricLoader.jsx';
 import {AudioLoader} from './AudioLoader';
+import LyricBox from './components/LyricBox';
+import KeysBox from './components/KeysBox';
 
 const tsuikyo = new window.Tsuikyo({flex: 'flex', prevent: true, im: 'roma'});
 tsuikyo.listen();
