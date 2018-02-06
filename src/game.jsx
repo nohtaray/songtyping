@@ -5,8 +5,8 @@ import {AudioLoader} from './AudioLoader';
 import LyricBox from './components/LyricBox';
 import KeysBox from './components/KeysBox';
 
-const tsuikyo = new window.Tsuikyo({flex: 'flex', prevent: true, im: 'roma'});
-tsuikyo.listen();
+// const tsuikyo = new window.Tsuikyo({flex: 'flex', prevent: true, im: 'roma'});
+const tsuikyo={}
 
 class Game extends React.Component {
   static propTypes = {
