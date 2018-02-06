@@ -1,6 +1,6 @@
 import {take, call, put, fork, takeEvery} from 'redux-saga/effects';
 import {all, eventChannel, END} from 'redux-saga';
-import {acceptStroke, finishWord, rejectStroke} from './actions';
+import {acceptStroke, beginWord, finishWord, rejectStroke} from './actions';
 
 /**
  * @param tw {Word} TsuikyoWord
@@ -11,14 +11,15 @@ function handleStroke(tw) {
     tw.listen(e => {
       const keyPos = tw.kpos();
       const kanaPos = tw.pos();
+      const keys = tw.kstr();
 
       if (e.finish) {
-        emit(finishWord({keyPos, kanaPos}));
+        emit(finishWord({keyPos, kanaPos, keys}));
         emit(END);
       } else if (e.accept) {
-        emit(acceptStroke({keyPos, kanaPos}));
+        emit(acceptStroke({keyPos, kanaPos, keys}));
       } else if (e.miss) {
-        emit(rejectStroke({keyPos, kanaPos}));
+        emit(rejectStroke({keyPos, kanaPos, keys}));
       }
     });
 
@@ -34,6 +35,8 @@ function* tsuikyoSaga() {
   const tsuikyo = new window.Tsuikyo({flex: 'flex', prevent: true, im: 'roma'});
 
   const tw = tsuikyo.make('わたしのこいを');
+  yield put(beginWord({keys: tw.kstr()}));
+
   const channel = yield call(handleStroke, tw);
   try {
     while (true) {
