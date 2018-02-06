@@ -6,16 +6,19 @@ import {acceptStroke, finishWord, rejectStroke} from './actions';
  * @param tw {Word} TsuikyoWord
  * @returns {Channel<any>}
  */
-function handleType(tw) {
+function handleStroke(tw) {
   return eventChannel(emit => {
     tw.listen(e => {
+      const keyPos = tw.kpos();
+      const kanaPos = tw.pos();
+
       if (e.finish) {
-        emit(finishWord());
+        emit(finishWord({keyPos, kanaPos}));
         emit(END);
       } else if (e.accept) {
-        emit(acceptStroke());
+        emit(acceptStroke({keyPos, kanaPos}));
       } else if (e.miss) {
-        emit(rejectStroke());
+        emit(rejectStroke({keyPos, kanaPos}));
       }
     });
 
@@ -31,7 +34,7 @@ function* tsuikyoSaga() {
   const tsuikyo = new window.Tsuikyo({flex: 'flex', prevent: true, im: 'roma'});
 
   const tw = tsuikyo.make('わたしのこいを');
-  const channel = yield call(handleType, tw);
+  const channel = yield call(handleStroke, tw);
   try {
     while (true) {
       const action = yield take(channel);
