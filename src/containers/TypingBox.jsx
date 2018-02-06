@@ -3,14 +3,14 @@ import LyricBox from '../components/LyricBox';
 import KeysBox from '../components/KeysBox';
 import {connect} from 'react-redux';
 
-const TypingBox = ({lyrics, charPoses, keys, keyPos}) => {
+const TypingBox = ({lyrics, kanaPoses, keys, keyPos}) => {
   return (
       <div className="game_wrapper">
         {
           <div className="game">
             <LyricBox
                 lyrics={lyrics}
-                charPoses={charPoses}
+                kanaPoses={kanaPoses}
             />
             <KeysBox
                 keys={keys}
@@ -25,7 +25,7 @@ const TypingBox = ({lyrics, charPoses, keys, keyPos}) => {
 export default connect(
     state => ({
       lyrics: state.lyrics || [],
-      charPoses: state.charPoses,
+      kanaPoses: state.kanaPoses,
       keys: state.keys,
       keyPos: state.keyPos,
     }),

@@ -3,17 +3,17 @@ import LyricRow from './LyricRow';
 
 /**
  * @param lyrics {Object[]}
- * @param charPoses {Number[]}
+ * @param kanaPoses {Number[]}
  * @returns {*}
  */
-export default ({lyrics, charPoses}) => {
+export default ({lyrics, kanaPoses}) => {
   const lyricRows = lyrics.map((lyric, i) => {
     return (
         <LyricRow
             key={i}
             kanji={lyric.kanji}
             hiragana={lyric.hiragana}
-            charPos={charPoses[i]} />
+            kanaPos={kanaPoses[i]} />
     );
   });
 

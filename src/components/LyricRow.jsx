@@ -5,15 +5,15 @@ import LyricRowKanji from './LyricRowKanji';
 /**
  * @param hiragana {string}
  * @param kanji {string}
- * @param charPos {number}
+ * @param kanaPos {number}
  * @returns {*}
  */
-export default ({hiragana, kanji, charPos}) => {
+export default ({hiragana, kanji, kanaPos}) => {
   return (
       <div className="lyric_row">
         <LyricRowHiragana
             hiragana={hiragana}
-            charPos={charPos} />
+            charPos={kanaPos} />
         <LyricRowKanji
             kanji={kanji} />
       </div>
