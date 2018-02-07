@@ -5,6 +5,8 @@ export const REJECT_STROKE = '@@app/REJECT_STROKE';
 export const BEGIN_WORD = '@@app/BEGIN_WORD';
 export const FINISH_WORD = '@@app/FINISH_WORD';
 
+export const CAN_PLAY_THROUGH_AUDIO = '@@app/CAN_PLAY_THROUGH_AUDIO';
+
 export const acceptStroke = createAction(
     ACCEPT_STROKE,
     ({keyPos, kanaPos, keys}) => ({keyPos, kanaPos, keys}),
@@ -19,5 +21,10 @@ export const beginWord = createAction(
 );
 export const finishWord = createAction(
     FINISH_WORD,
-    (({keyPos, kanaPos, keys}) => ({keyPos, kanaPos, keys})),
+    ({keyPos, kanaPos, keys}) => ({keyPos, kanaPos, keys}),
+);
+
+export const canPlayThroughAudio = createAction(
+    CAN_PLAY_THROUGH_AUDIO,
+    audio => audio,
 );

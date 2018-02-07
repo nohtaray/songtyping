@@ -11,6 +11,8 @@ export default (state = {
   rowPos: 0,
   keys: '',
   keyPos: 0,
+
+  audioSrc: '/audio/romeo_and_cinderella.mp3',
 }, action) => {
   switch (action.type) {
     case BEGIN_WORD:

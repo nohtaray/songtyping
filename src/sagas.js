@@ -1,6 +1,9 @@
 import {take, call, put, fork, takeEvery} from 'redux-saga/effects';
 import {all, eventChannel, END} from 'redux-saga';
-import {acceptStroke, beginWord, finishWord, rejectStroke} from './actions';
+import {
+  acceptStroke, beginWord, CAN_PLAY_THROUGH_AUDIO, finishWord,
+  rejectStroke,
+} from './actions';
 
 /**
  * @param tw {Word} TsuikyoWord
@@ -48,6 +51,15 @@ function* tsuikyoSaga() {
   }
 }
 
+function* handleCanPlayThroughAudio() {
+  while (true) {
+    const action = yield take(CAN_PLAY_THROUGH_AUDIO);
+    const audio = action.payload;
+    audio.play();
+  }
+}
+
 export default function* rootSaga() {
   yield fork(tsuikyoSaga);
+  yield fork(handleCanPlayThroughAudio);
 }
