@@ -6,8 +6,10 @@ import {
 export default (state = {
   allLyrics: [],
   lyrics: [],
+  page: 0,
   kanaPoses: [0, 0, 0, 0],
   rowPos: 0,
+  kana: '',
   keys: '',
   keyPos: 0,
 
@@ -21,9 +23,17 @@ export default (state = {
       };
     case LYRIC_TRANSITION:
       const page = action.payload;
+      const lyrics = Object.assign([], state.allLyrics[page].lyrics);
+      const rowPos = 0;
       return {
         ...state,
-        lyrics: Object.assign([], state.allLyrics[page].lyrics),
+        page,
+        lyrics,
+        rowPos,
+        kana: lyrics[rowPos] ? lyrics[rowPos].hiragana : '',
+        keyPos: 0,
+        kanaPoses: [0, 0, 0, 0],
+        keys: '',
       };
 
     case BEGIN_WORD:
@@ -31,10 +41,8 @@ export default (state = {
         ...state,
         keys: action.payload.keys,
       };
-
     case ACCEPT_STROKE:
-    case REJECT_STROKE:
-    case FINISH_WORD:
+    case REJECT_STROKE: {
       const {keyPos, kanaPos, keys} = action.payload;
       const kanaPoses = state.kanaPoses.slice();
       kanaPoses[state.rowPos] = kanaPos;
@@ -45,6 +53,18 @@ export default (state = {
         keys,
         kanaPoses,
       };
+    }
+    case FINISH_WORD: {
+      const lyrics = state.allLyrics[state.page].lyrics;
+      const rowPos = state.rowPos + 1;
+      return {
+        ...state,
+        keyPos: 0,
+        keys: '',
+        kana: lyrics[rowPos] ? lyrics[rowPos].hiragana : '',
+        rowPos,
+      };
+    }
     default:
       return state;
   }
