@@ -1,9 +1,10 @@
 import {
-  ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD,
+  ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD, LYRIC_TRANSITION,
   REJECT_STROKE,
 } from './actions';
 
 export default (state = {
+  allLyrics: [],
   lyrics: [],
   kanaPoses: [0, 0, 0, 0],
   rowPos: 0,
@@ -16,7 +17,13 @@ export default (state = {
     case COMPLETE_LOAD_LYRIC:
       return {
         ...state,
-        lyrics: action.payload[1].lyrics,
+        allLyrics: action.payload,
+      };
+    case LYRIC_TRANSITION:
+      const page = action.payload;
+      return {
+        ...state,
+        lyrics: Object.assign([], state.allLyrics[page].lyrics),
       };
 
     case BEGIN_WORD:
@@ -36,7 +43,7 @@ export default (state = {
         ...state,
         keyPos,
         keys,
-        kanaPoses: kanaPoses,
+        kanaPoses,
       };
     default:
       return state;

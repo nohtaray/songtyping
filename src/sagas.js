@@ -3,9 +3,9 @@ import {all, END, eventChannel} from 'redux-saga';
 import {
   acceptStroke,
   beginWord,
-  CAN_PLAY_THROUGH_AUDIO,
+  CAN_PLAY_THROUGH_AUDIO, COMPLETE_LOAD_LYRIC,
   completeLoadLyric,
-  finishWord,
+  finishWord, lyricTransition,
   rejectStroke,
 } from './actions';
 
@@ -95,8 +95,42 @@ function* loadLyric() {
   yield put(completeLoadLyric(lyrics));
 }
 
+function setLyricTransitionTicker(times) {
+  return eventChannel(emit => {
+    const timerIds = times.map((time, i) => {
+      return setTimeout(() => emit(i), time);
+    });
+
+    return () => timerIds.forEach((timerId) => clearTimeout(timerId));
+  });
+}
+
+function* handleCompleteLoadLyric() {
+  const action = yield take(COMPLETE_LOAD_LYRIC);
+
+  const lyrics = action.payload;
+  const times = lyrics.map(p => p.time);
+  const tickChannel = yield call(setLyricTransitionTicker, times);
+
+  try {
+    while (true) {
+      const page = yield take(tickChannel);
+      yield put(lyricTransition(page));
+      // 最後のページ来たら抜ける
+      if (page >= lyrics.length - 1) {
+        tickChannel.close();
+      }
+    }
+  } finally {
+    tickChannel.close();
+  }
+}
+
 export default function* rootSaga() {
   yield fork(tsuikyoSaga);
+
   yield fork(handleCanPlayThroughAudio);
+
   yield fork(loadLyric);
+  yield fork(handleCompleteLoadLyric);
 }
