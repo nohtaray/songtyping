@@ -42,12 +42,16 @@ class Tsuikyo extends React.Component {
   }
 
   handleStroke(e) {
-    if (e.test) return;
+    if (e.test || e.keyChar === ' ') return;
 
     const {onAccept, onReject, onFinish} = this.props;
 
     if (e.accept) {
       onAccept(this.word);
+      // スペースは打たなくていい
+      while (this.word.nextKeys().toString() === [' '].toString()) {
+        this.word.stroke(' ');
+      }
     }
     if (e.miss) {
       // 大文字小文字反転して合ってたら受け付ける
@@ -73,7 +77,7 @@ export default connect(
     state => ({
       hiragana: state.kana || '',
       // 2行同じ歌詞が連続で来たとき対策
-      identifier: `${state.page} ${state.rowPos}`
+      identifier: `${state.page} ${state.rowPos}`,
     }),
     dispatch => ({
       onBeginWord: tw => dispatch(beginWord({
