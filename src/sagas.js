@@ -1,4 +1,4 @@
-import {call, fork, put, take} from 'redux-saga/effects';
+import {all, call, fork, put, take} from 'redux-saga/effects';
 import {eventChannel} from 'redux-saga';
 import {
   CAN_PLAY_THROUGH_AUDIO,
@@ -6,14 +6,6 @@ import {
   completeLoadLyric,
   lyricTransition,
 } from './actions';
-
-function* handleCanPlayThroughAudio() {
-  while (true) {
-    const action = yield take(CAN_PLAY_THROUGH_AUDIO);
-    const audio = action.payload;
-    audio.play();
-  }
-}
 
 function* loadLyric() {
   const parseXml = (xml) => {
@@ -57,10 +49,15 @@ function setLyricTransitionTicker(times) {
   });
 }
 
-function* handleCompleteLoadLyric() {
-  const action = yield take(COMPLETE_LOAD_LYRIC);
+function* handleCompleteLoadResources() {
+  const [lyricAction, audioAction] = yield all([
+    take(COMPLETE_LOAD_LYRIC),
+    take(CAN_PLAY_THROUGH_AUDIO),
+  ]);
+  const audio = audioAction.payload;
+  audio.play();
 
-  const lyrics = action.payload;
+  const lyrics = lyricAction.payload;
   const times = lyrics.map(p => p.time);
   const tickChannel = yield call(setLyricTransitionTicker, times);
 
@@ -79,8 +76,6 @@ function* handleCompleteLoadLyric() {
 }
 
 export default function* rootSaga() {
-  yield fork(handleCanPlayThroughAudio);
-
   yield fork(loadLyric);
-  yield fork(handleCompleteLoadLyric);
+  yield fork(handleCompleteLoadResources);
 }
