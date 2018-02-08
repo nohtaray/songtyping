@@ -42,12 +42,21 @@ class Tsuikyo extends React.Component {
   }
 
   handleStroke(e) {
+    if (e.test) return;
+
     const {onAccept, onReject, onFinish} = this.props;
 
     if (e.accept) {
       onAccept(this.word);
     }
     if (e.miss) {
+      // 大文字小文字反転して合ってたら受け付ける
+      if (this.word.test(e.keyChar.toUpperCase()).accept) {
+        return this.word.stroke(e.keyChar.toUpperCase());
+      }
+      if (this.word.test(e.keyChar.toLowerCase()).accept) {
+        return this.word.stroke(e.keyChar.toLowerCase());
+      }
       onReject(this.word);
     }
     if (e.finish) {
