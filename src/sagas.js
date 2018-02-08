@@ -1,7 +1,11 @@
-import {take, call, put, fork, takeEvery} from 'redux-saga/effects';
-import {all, eventChannel, END} from 'redux-saga';
+import {call, fork, put, take} from 'redux-saga/effects';
+import {all, END, eventChannel} from 'redux-saga';
 import {
-  acceptStroke, beginWord, CAN_PLAY_THROUGH_AUDIO, finishWord,
+  acceptStroke,
+  beginWord,
+  CAN_PLAY_THROUGH_AUDIO,
+  completeLoadLyric,
+  finishWord,
   rejectStroke,
 } from './actions';
 
@@ -59,7 +63,40 @@ function* handleCanPlayThroughAudio() {
   }
 }
 
+function* loadLyric() {
+  const parseXml = (xml) => {
+    const dom = (new DOMParser()).parseFromString(xml, 'text/xml');
+    const pages = dom.querySelectorAll('data');
+
+    return [].map.call(pages, (page) => {
+          window.page = page;
+          const time = page.querySelector('time').textContent * 100;
+          const kanjiStr = page.querySelector('lyric').textContent;
+          const hiraganaStr = page.querySelector('lyric_type').textContent;
+
+          const kanjis = kanjiStr !== '' ? kanjiStr.split('*', 4) : [];
+          const hiraganas = hiraganaStr !== '' ? hiraganaStr.split('*', 4) : [];
+          return {
+            time: time,
+            lyrics: hiraganas.map((h, i) => {
+              return {hiragana: h, kanji: kanjis[i]};
+            }),
+          };
+        },
+    );
+  };
+
+  const src = '/lyric/romeo_and_cinderella.xml';
+  const lyrics = yield call(() => {
+    return fetch(src).then(res => res.text()).then(xml => {
+      return parseXml(xml);
+    });
+  });
+  yield put(completeLoadLyric(lyrics));
+}
+
 export default function* rootSaga() {
   yield fork(tsuikyoSaga);
   yield fork(handleCanPlayThroughAudio);
+  yield fork(loadLyric);
 }

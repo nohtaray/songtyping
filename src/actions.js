@@ -6,6 +6,7 @@ export const BEGIN_WORD = '@@app/BEGIN_WORD';
 export const FINISH_WORD = '@@app/FINISH_WORD';
 
 export const CAN_PLAY_THROUGH_AUDIO = '@@app/CAN_PLAY_THROUGH_AUDIO';
+export const COMPLETE_LOAD_LYRIC = '@@app/COMPLETE_LOAD_LYRIC';
 
 export const acceptStroke = createAction(
     ACCEPT_STROKE,
@@ -27,4 +28,8 @@ export const finishWord = createAction(
 export const canPlayThroughAudio = createAction(
     CAN_PLAY_THROUGH_AUDIO,
     audio => audio,
+);
+export const completeLoadLyric = createAction(
+    COMPLETE_LOAD_LYRIC,
+    lyric => lyric,
 );

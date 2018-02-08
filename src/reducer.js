@@ -1,12 +1,10 @@
-import {ACCEPT_STROKE, BEGIN_WORD, FINISH_WORD, REJECT_STROKE} from './actions';
+import {
+  ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD,
+  REJECT_STROKE,
+} from './actions';
 
 export default (state = {
-  lyrics: [
-    {kanji: '私の恋を', hiragana: 'わたしのこいを'},
-    {kanji: '悲劇のジュリエットにしないで', hiragana: 'ひげきのじゅりえっとにしないで'},
-    {kanji: 'ここから連れ出して…', hiragana: 'ここからつれだして・・・'},
-    {kanji: 'そんな気分よ', hiragana: 'そんなきぶんよ'},
-  ],
+  lyrics: [],
   kanaPoses: [0, 0, 0, 0],
   rowPos: 0,
   keys: '',
@@ -15,6 +13,12 @@ export default (state = {
   audioSrc: '/audio/romeo_and_cinderella.mp3',
 }, action) => {
   switch (action.type) {
+    case COMPLETE_LOAD_LYRIC:
+      return {
+        ...state,
+        lyrics: action.payload[1].lyrics,
+      };
+
     case BEGIN_WORD:
       return {
         ...state,
