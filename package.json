@@ -9,7 +9,9 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server.js",
-    "client": "cd ./client && yarn start"
+    "client": "cd ./client && yarn start",
+    "build": "cd ./client && yarn build",
+    "deploy": "./heroku-deploy.sh"
   },
   "devDependencies": {
     "concurrently": "^3.5.1"
