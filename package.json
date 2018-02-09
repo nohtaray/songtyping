@@ -1,0 +1,11 @@
+{
+  "name": "react-typing",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+  },
+  "scripts": {
+    "client": "cd ./client && yarn start"
+  },
+  "devDependencies": {}
+}
