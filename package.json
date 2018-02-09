@@ -3,9 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
   },
   "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
     "client": "cd ./client && yarn start"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  }
 }
