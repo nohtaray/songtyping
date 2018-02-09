@@ -3,7 +3,7 @@ import LyricBox from '../components/LyricBox';
 import KeysBox from '../components/KeysBox';
 import {connect} from 'react-redux';
 
-const TypingBox = ({lyrics, kanaPoses, keys, keyPos}) => {
+const Game = ({lyrics, kanaPoses, keys, keyPos}) => {
   return (
       <div className="game_wrapper">
         {
@@ -29,4 +29,4 @@ export default connect(
       keys: state.keys,
       keyPos: state.keyPos,
     }),
-)(TypingBox);
+)(Game);

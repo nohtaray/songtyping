@@ -1,11 +1,11 @@
 import React from 'react';
-import TypingBox from '../containers/TypingBox';
+import Game from '../containers/Game';
 import AudioPlayer from '../containers/AudioPlayer';
 import Tsuikyo from '../containers/Tsuikyo';
 
 export default () => (
     <div>
-      <TypingBox />
+      <Game />
       <AudioPlayer />
       <Tsuikyo />
     </div>
