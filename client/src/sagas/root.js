@@ -4,9 +4,10 @@ import {
   CAN_PLAY_THROUGH_AUDIO,
   COMPLETE_LOAD_LYRIC,
   completeLoadLyric,
-  lyricTransition, PUSH_START_BUTTON,
+  lyricTransition,
+  START_GAME,
 } from '../actions';
-import io from 'socket.io-client';
+import socketIO from './socketio';
 
 function* loadLyric() {
   const parseXml = (xml) => {
@@ -56,9 +57,8 @@ function* handleCompleteLoadResources() {
     take(CAN_PLAY_THROUGH_AUDIO),
   ]);
 
-  // スタートボタン押されるまで待つ。
-  // TODO: 消す
-  yield take(PUSH_START_BUTTON);
+  // スタートするまでまつ
+  yield take(START_GAME);
 
   const audio = audioAction.payload;
   audio.play();
@@ -81,21 +81,8 @@ function* handleCompleteLoadResources() {
   }
 }
 
-// 真似しよう
-// https://github.com/kuy/redux-saga-chat-example/blob/87e6db31df5fa54b9d368cd6975d74c550fdc860/src/client/sagas.js
-function connect() {
-  const socket = io();
-  return new Promise(resolve => {
-    socket.on('connect', () => {
-      resolve(socket);
-    });
-  });
-}
-
 export default function* rootSaga() {
   yield fork(loadLyric);
   yield fork(handleCompleteLoadResources);
-
-  const socket = yield call(connect);
-  console.log('connected', socket);
+  yield fork(socketIO);
 }

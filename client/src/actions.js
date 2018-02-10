@@ -1,6 +1,7 @@
 import {createAction} from 'redux-actions';
 
 export const PUSH_START_BUTTON = '@@app/PUSH_START_BUTTON';
+export const START_GAME = '@@app/START_GAME';
 
 export const ACCEPT_STROKE = '@@app/ACCEPT_STROKE';
 export const REJECT_STROKE = '@@app/REJECT_STROKE';
@@ -13,6 +14,9 @@ export const LYRIC_TRANSITION = '@@app/LYRIC_TRANSITION';
 
 export const pushStartButton = createAction(
     PUSH_START_BUTTON,
+);
+export const startGame = createAction(
+    START_GAME,
 );
 
 export const acceptStroke = createAction(
