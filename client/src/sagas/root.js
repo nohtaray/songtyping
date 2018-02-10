@@ -5,7 +5,7 @@ import {
   COMPLETE_LOAD_LYRIC,
   completeLoadLyric,
   lyricTransition, PUSH_START_BUTTON,
-} from './actions';
+} from '../actions';
 import io from 'socket.io-client';
 
 function* loadLyric() {
