@@ -1,12 +1,13 @@
 import React from 'react';
 import LyricBox from '../components/LyricBox';
 import KeysBox from '../components/KeysBox';
+import StartButton from './StartButton';
 import {connect} from 'react-redux';
 
 const Game = ({lyrics, kanaPoses, keys, keyPos}) => {
   return (
-      <div className="game_wrapper">
-        {
+      <div>
+        <div className="game_wrapper">
           <div className="game">
             <LyricBox
                 lyrics={lyrics}
@@ -17,7 +18,9 @@ const Game = ({lyrics, kanaPoses, keys, keyPos}) => {
                 charPos={keyPos}
             />
           </div>
-        }
+        </div>
+
+        <StartButton/>
       </div>
   );
 };

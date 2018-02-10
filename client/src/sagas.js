@@ -4,7 +4,7 @@ import {
   CAN_PLAY_THROUGH_AUDIO,
   COMPLETE_LOAD_LYRIC,
   completeLoadLyric,
-  lyricTransition,
+  lyricTransition, PUSH_START_BUTTON,
 } from './actions';
 import io from 'socket.io-client';
 
@@ -55,6 +55,11 @@ function* handleCompleteLoadResources() {
     take(COMPLETE_LOAD_LYRIC),
     take(CAN_PLAY_THROUGH_AUDIO),
   ]);
+
+  // スタートボタン押されるまで待つ。
+  // TODO: 消す
+  yield take(PUSH_START_BUTTON);
+
   const audio = audioAction.payload;
   audio.play();
 
