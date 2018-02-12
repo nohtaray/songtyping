@@ -31,11 +31,12 @@ const LyricRowHiragana = ({charPos, hiragana}) => {
  * @param hiragana {string}
  * @param kanji {string}
  * @param kanaPos {number}
+ * @param color {string}
  * @returns {*}
  */
-export default ({hiragana, kanji, kanaPos}) => {
+export default ({hiragana, kanji, kanaPos, color}) => {
   return (
-      <div className="lyric_row">
+      <div className={`lyric_row color_${color}`}>
         <LyricRowHiragana
             hiragana={hiragana}
             charPos={kanaPos} />
