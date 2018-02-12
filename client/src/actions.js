@@ -17,6 +17,7 @@ export const pushStartButton = createAction(
 );
 export const startGame = createAction(
     START_GAME,
+    ({playerCount, seed}) => ({playerCount, seed}),
 );
 
 export const acceptStroke = createAction(

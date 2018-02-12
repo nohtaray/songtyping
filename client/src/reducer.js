@@ -1,7 +1,34 @@
 import {
   ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD, LYRIC_TRANSITION,
-  REJECT_STROKE,
+  REJECT_STROKE, START_GAME,
 } from './actions';
+import xorshift from 'xorshift';
+
+const ArrayShuffle = seed => {
+  const xs = xorshift.constructor([362436069, 521288629, 88675123, seed]);
+  return arr => {
+    [...Array(arr.length)].forEach((_, i) => {
+      const r = Math.floor(xs.random() * arr.length);
+      [arr[r], arr[i]] = [arr[i], arr[r]];
+    });
+    return arr;
+  };
+};
+
+const assign = (lyrics, playerCount, seed) => {
+  const shuffle = ArrayShuffle(seed);
+  return lyrics.map((page) => {
+    const players = shuffle([...Array(playerCount)].map((_, i) => i));
+    const assigns = page.lyrics.map((_, i) => players[i % playerCount]);
+    return shuffle(assigns);
+  });
+};
+
+function nextRowPos(pageAssignments, myNumber, typedRowCount) {
+  return [0, 1, 2, 3].filter(
+      k => pageAssignments[k] === myNumber,
+  )[typedRowCount];
+}
 
 export default (state = {
   allLyrics: [],
@@ -13,6 +40,10 @@ export default (state = {
   keys: '',
   keyPos: 0,
 
+  myNumber: 0,
+  assignments: [],
+  typedRowCount: 0,
+
   audioSrc: '/audio/romeo_and_cinderella.mp3',
 }, action) => {
   switch (action.type) {
@@ -21,10 +52,22 @@ export default (state = {
         ...state,
         allLyrics: action.payload,
       };
-    case LYRIC_TRANSITION:
+    case START_GAME: {
+      const {playerCount, seed} = action.payload;
+      return {
+        ...state,
+        assignments: assign(state.allLyrics, playerCount, seed),
+      };
+    }
+    case LYRIC_TRANSITION: {
       const page = action.payload;
       const lyrics = Object.assign([], state.allLyrics[page].lyrics);
-      const rowPos = 0;
+      const typedRowCount = 0;
+      const rowPos = nextRowPos(
+          state.assignments[page],
+          state.myNumber,
+          typedRowCount,
+      );
       return {
         ...state,
         page,
@@ -34,8 +77,9 @@ export default (state = {
         keyPos: 0,
         kanaPoses: [0, 0, 0, 0],
         keys: '',
+        typedRowCount,
       };
-
+    }
     case BEGIN_WORD:
       return {
         ...state,
@@ -56,13 +100,19 @@ export default (state = {
     }
     case FINISH_WORD: {
       const lyrics = state.allLyrics[state.page].lyrics;
-      const rowPos = state.rowPos + 1;
+      const typedRowCount = state.typedRowCount + 1;
+      const rowPos = nextRowPos(
+          state.assignments[state.page],
+          state.myNumber,
+          typedRowCount,
+      );
       return {
         ...state,
         keyPos: 0,
         keys: '',
         kana: lyrics[rowPos] ? lyrics[rowPos].hiragana : '',
         rowPos,
+        typedRowCount,
       };
     }
     default:

@@ -26,8 +26,8 @@ function* read(socket) {
 
 function subscribe(socket) {
   return eventChannel(emit => {
-    socket.on(EVENT_START_GAME, () => {
-      emit(startGame());
+    socket.on(EVENT_START_GAME, payload => {
+      emit(startGame(payload));
     });
     return () => {};
   });
