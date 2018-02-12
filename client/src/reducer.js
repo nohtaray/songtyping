@@ -1,5 +1,6 @@
 import {
   ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD, LYRIC_TRANSITION,
+  OTHERS_ACCEPT_STROKE,
   REJECT_STROKE, START_GAME,
 } from './actions';
 import xorshift from 'xorshift';
@@ -114,6 +115,17 @@ export default (state = {
         kana: lyrics[rowPos] ? lyrics[rowPos].hiragana : '',
         rowPos,
         typedRowCount,
+      };
+    }
+
+    case OTHERS_ACCEPT_STROKE: {
+      const {kanaPos, rowPos} = action.payload;
+      const kanaPoses = state.kanaPoses.slice();
+      kanaPoses[rowPos] = kanaPos;
+
+      return {
+        ...state,
+        kanaPoses,
       };
     }
     default:

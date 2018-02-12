@@ -27,6 +27,10 @@ io.on('connection', socket => {
       });
     });
   });
+
+  socket.on('acceptStroke', ({rowPos, kanaPos}) => {
+    socket.broadcast.emit('acceptStroke', {rowPos, kanaPos});
+  });
 });
 
 http.listen(PORT, () => {

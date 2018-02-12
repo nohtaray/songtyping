@@ -3,6 +3,8 @@ import {createAction} from 'redux-actions';
 export const PUSH_START_BUTTON = '@@app/PUSH_START_BUTTON';
 export const START_GAME = '@@app/START_GAME';
 
+export const OTHERS_ACCEPT_STROKE = '@@app/OTHERS_ACCEPT_STROKE';
+
 export const ACCEPT_STROKE = '@@app/ACCEPT_STROKE';
 export const REJECT_STROKE = '@@app/REJECT_STROKE';
 export const BEGIN_WORD = '@@app/BEGIN_WORD';
@@ -18,6 +20,11 @@ export const pushStartButton = createAction(
 export const startGame = createAction(
     START_GAME,
     ({playerCount, playerNumber, seed}) => ({playerCount, playerNumber, seed}),
+);
+
+export const othersAcceptStroke = createAction(
+    OTHERS_ACCEPT_STROKE,
+    ({kanaPos, rowPos}) => ({kanaPos, rowPos}),
 );
 
 export const acceptStroke = createAction(
