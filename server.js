@@ -17,9 +17,13 @@ io.on('connection', socket => {
 
   socket.on('startGame', () => {
     io.sockets.clients((_, clients) => {
-      io.emit('startGame', {
-        playerCount: clients.length,
-        seed: Math.floor(new Date() / 1000),
+      const seed = Math.floor(new Date() / 1000);
+      clients.forEach((socketId, i) => {
+        io.to(socketId).emit('startGame', {
+          playerCount: clients.length,
+          playerNumber: i,
+          seed,
+        });
       });
     });
   });

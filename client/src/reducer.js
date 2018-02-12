@@ -24,9 +24,9 @@ const assign = (lyrics, playerCount, seed) => {
   });
 };
 
-function nextRowPos(pageAssignments, myNumber, typedRowCount) {
+function nextRowPos(pageAssignments, playerNumber, typedRowCount) {
   return [0, 1, 2, 3].filter(
-      k => pageAssignments[k] === myNumber,
+      k => pageAssignments[k] === playerNumber,
   )[typedRowCount];
 }
 
@@ -40,7 +40,7 @@ export default (state = {
   keys: '',
   keyPos: 0,
 
-  myNumber: 0,
+  playerNumber: 0,
   assignments: [],
   typedRowCount: 0,
 
@@ -53,9 +53,10 @@ export default (state = {
         allLyrics: action.payload,
       };
     case START_GAME: {
-      const {playerCount, seed} = action.payload;
+      const {playerCount, playerNumber, seed} = action.payload;
       return {
         ...state,
+        playerNumber,
         assignments: assign(state.allLyrics, playerCount, seed),
       };
     }
@@ -65,7 +66,7 @@ export default (state = {
       const typedRowCount = 0;
       const rowPos = nextRowPos(
           state.assignments[page],
-          state.myNumber,
+          state.playerNumber,
           typedRowCount,
       );
       return {
@@ -103,7 +104,7 @@ export default (state = {
       const typedRowCount = state.typedRowCount + 1;
       const rowPos = nextRowPos(
           state.assignments[state.page],
-          state.myNumber,
+          state.playerNumber,
           typedRowCount,
       );
       return {
