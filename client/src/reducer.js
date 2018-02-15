@@ -41,7 +41,7 @@ export default (state = {
   keys: '',
   keyPos: 0,
 
-  playerNumber: 0,
+  playerNumber: null,
   assignments: [],
   typedRowCount: 0,
 
