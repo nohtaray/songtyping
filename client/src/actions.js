@@ -37,7 +37,7 @@ export const rejectStroke = createAction(
 );
 export const beginWord = createAction(
     BEGIN_WORD,
-    ({keyPos, kanaPos, keys}) => ({keyPos, kanaPos, keys}),
+    ({keys}) => ({keys}),
 );
 export const finishWord = createAction(
     FINISH_WORD,
