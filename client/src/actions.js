@@ -1,5 +1,10 @@
 import {createAction} from 'redux-actions';
 
+export const PUSH_START_BUTTON = '@@app/PUSH_START_BUTTON';
+export const START_GAME = '@@app/START_GAME';
+
+export const OTHERS_ACCEPT_STROKE = '@@app/OTHERS_ACCEPT_STROKE';
+
 export const ACCEPT_STROKE = '@@app/ACCEPT_STROKE';
 export const REJECT_STROKE = '@@app/REJECT_STROKE';
 export const BEGIN_WORD = '@@app/BEGIN_WORD';
@@ -8,6 +13,19 @@ export const FINISH_WORD = '@@app/FINISH_WORD';
 export const CAN_PLAY_THROUGH_AUDIO = '@@app/CAN_PLAY_THROUGH_AUDIO';
 export const COMPLETE_LOAD_LYRIC = '@@app/COMPLETE_LOAD_LYRIC';
 export const LYRIC_TRANSITION = '@@app/LYRIC_TRANSITION';
+
+export const pushStartButton = createAction(
+    PUSH_START_BUTTON,
+);
+export const startGame = createAction(
+    START_GAME,
+    ({playerCount, playerNumber, seed}) => ({playerCount, playerNumber, seed}),
+);
+
+export const othersAcceptStroke = createAction(
+    OTHERS_ACCEPT_STROKE,
+    ({kanaPos, rowPos}) => ({kanaPos, rowPos}),
+);
 
 export const acceptStroke = createAction(
     ACCEPT_STROKE,
@@ -19,7 +37,7 @@ export const rejectStroke = createAction(
 );
 export const beginWord = createAction(
     BEGIN_WORD,
-    ({keyPos, kanaPos, keys}) => ({keyPos, kanaPos, keys}),
+    ({keys}) => ({keys}),
 );
 export const finishWord = createAction(
     FINISH_WORD,

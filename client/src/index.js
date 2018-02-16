@@ -9,7 +9,7 @@ import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import mySaga from './sagas';
+import saga from './sagas/root';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -20,7 +20,7 @@ const store = createStore(
     applyMiddleware(sagaMiddleware, logger),
 );
 
-sagaMiddleware.run(mySaga);
+sagaMiddleware.run(saga);
 
 ReactDOM.render(
     (

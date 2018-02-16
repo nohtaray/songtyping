@@ -1,0 +1,1 @@
+export const getRowPos = state => state.rowPos;

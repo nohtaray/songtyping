@@ -7,12 +7,42 @@ TODO: vw 指定のやつを game 要素のサイズに合わせて自動調整�
   src: url("/font/PixelMplus12-Regular.ttf");
 }
 
+.color_red {
+  color: #ff5150;
+}
+
+.color_orange {
+  color: #ffa138;
+}
+
+.color_green {
+  color: #2bff70;
+}
+
+.color_aqua {
+  color: #32cbff;
+}
+
+.color_blue {
+  color: #6e6fff;
+}
+
+.color_purple {
+  color: #e254ff;
+}
+
+.color_pink {
+  color: #ff84c4;
+}
+
+.color_gray {
+  color: #888282;
+}
+
 body {
   font-family: "PixelMplus12-Regular.ttf";
-  color: #333333;
 
   /* 赤 */
-  color: #ff5150;
   /* オレンジ（薄） */
   /*color: #ffc686;*/
   /* 緑 */
@@ -53,8 +83,7 @@ https://qiita.com/ryounagaoka/items/a98f59347ed758743b8d#div%E3%82%84p%E3%81%AA%
   top: 0;
   bottom: 0;
 
-  background: url("/img/frame_red.png") no-repeat top left, url("/img/frame.png") no-repeat top left;
-  background-size: contain;
+  background: url("/img/frame.png") top left / contain no-repeat;
 }
 
 .lyric_box {
