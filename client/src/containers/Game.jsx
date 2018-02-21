@@ -3,6 +3,7 @@ import LyricBox from '../components/LyricBox';
 import KeysBox from '../components/KeysBox';
 import StartButton from './StartButton';
 import {connect} from 'react-redux';
+import SwitchIMButton from './SwitchIMButton';
 
 const COLORS = [
   'red',
@@ -38,6 +39,7 @@ const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber}) => {
         </div>
 
         <StartButton />
+        <SwitchIMButton />
       </div>
   );
 };

@@ -9,6 +9,8 @@ class Tsuikyo extends React.Component {
     onFinish: PropTypes.func.isRequired,
     onReject: PropTypes.func.isRequired,
     onBeginWord: PropTypes.func.isRequired,
+
+    im: PropTypes.string.isRequired,
     hiragana: PropTypes.string.isRequired,
     identifier: PropTypes.string.isRequired,
   };
@@ -22,7 +24,7 @@ class Tsuikyo extends React.Component {
     this.tsuikyo = new window.Tsuikyo({
       flex: 'flex',
       prevent: true,
-      im: 'roma',
+      im: this.props.im,
     });
   }
 
@@ -75,6 +77,7 @@ class Tsuikyo extends React.Component {
 
 export default connect(
     state => ({
+      im: state.im,
       hiragana: state.kana || '',
       // 2行同じ歌詞が連続で来たとき対策
       identifier: `${state.page} ${state.rowPos}`,

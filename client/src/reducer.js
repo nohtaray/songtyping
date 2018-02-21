@@ -1,6 +1,6 @@
 import {
   ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD, LYRIC_TRANSITION,
-  OTHERS_ACCEPT_STROKE,
+  OTHERS_ACCEPT_STROKE, PUSH_SWITCH_IM_BUTTON,
   REJECT_STROKE, START_GAME,
 } from './actions';
 import xorshift from 'xorshift';
@@ -32,6 +32,7 @@ function nextRowPos(pageAssignments, playerNumber, typedRowCount) {
 }
 
 export default (state = {
+  im: 'roma',
   allLyrics: [],
   lyrics: [],
   page: 0,
@@ -48,6 +49,11 @@ export default (state = {
   audioSrc: '/audio/romeo_and_cinderella.mp3',
 }, action) => {
   switch (action.type) {
+    case PUSH_SWITCH_IM_BUTTON:
+      return {
+        ...state,
+        im: state.im === 'roma' ? 'jis' : 'roma',
+      };
     case COMPLETE_LOAD_LYRIC:
       return {
         ...state,
