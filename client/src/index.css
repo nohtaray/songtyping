@@ -147,3 +147,22 @@ https://qiita.com/ryounagaoka/items/a98f59347ed758743b8d#div%E3%82%84p%E3%81%AA%
 .chat_post {
   margin-bottom: 0.3rem;
 }
+
+.chat_input {
+  position: absolute;
+  box-sizing: border-box;
+  left: 7.9%;
+  top: 89.0%;
+  width: 37.7%;
+  height: 4.3%;
+}
+
+.chat_input input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+
+  padding-left: 0.5vw;
+  border-style: none;
+  font-size: 1.6vw;
+}
