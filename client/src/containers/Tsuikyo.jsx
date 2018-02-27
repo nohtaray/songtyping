@@ -18,14 +18,7 @@ class Tsuikyo extends React.Component {
   constructor(props) {
     super(props);
     this.tsuikyo = null;
-  }
-
-  componentDidMount() {
-    this.tsuikyo = new window.Tsuikyo({
-      flex: 'flex',
-      prevent: true,
-      im: this.props.im,
-    });
+    this.word = null;
   }
 
   componentWillUnmount() {
@@ -33,14 +26,33 @@ class Tsuikyo extends React.Component {
     this.tsuikyo.sleep();
   }
 
-  componentDidUpdate() {
-    if (this.word) this.word.sleep();
+  shouldComponentUpdate(nextProps) {
+    return nextProps.identifier !== this.props.identifier;
+  }
 
+  componentDidUpdate() {
     const {hiragana, onBeginWord} = this.props;
     if (hiragana) {
-      this.word = this.tsuikyo.make(hiragana).listen(e => this.handleStroke(e));
+      this.refreshWord(hiragana);
       onBeginWord(this.word);
     }
+  }
+
+  refreshTsuikyo() {
+    // 新しくつくる前に sleep しないと多重にキーイベントを拾っちゃう
+    if (this.tsuikyo) this.tsuikyo.sleep();
+    this.tsuikyo = new window.Tsuikyo({
+      flex: 'flex',
+      prevent: true,
+      im: this.props.im,
+    });
+  }
+
+  refreshWord(hiragana) {
+    // 新しくつくる前に sleep しないと多重にキーイベントを拾っちゃう
+    if (this.word) this.word.sleep();
+    this.refreshTsuikyo();
+    this.word = this.tsuikyo.make(hiragana).listen(e => this.handleStroke(e));
   }
 
   handleStroke(e) {
