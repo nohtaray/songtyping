@@ -94,7 +94,6 @@ https://qiita.com/ryounagaoka/items/a98f59347ed758743b8d#div%E3%82%84p%E3%81%AA%
   width: 55.2%;
   height: 39.4%;
 
-  font-size: 30px;
   padding: 1vw;
 }
 
@@ -130,4 +129,21 @@ https://qiita.com/ryounagaoka/items/a98f59347ed758743b8d#div%E3%82%84p%E3%81%AA%
 
 .lyric_row_hiragana {
   font-size: 1.8vw;
+}
+
+.chat_timeline {
+  position: absolute;
+  box-sizing: border-box;
+  left: 6.7%;
+  top: 66.0%;
+  width: 55.2%;
+  height: 21.5%;
+
+  padding: 1vw;
+
+  font-size: 1.6vw;
+}
+
+.chat_post {
+  margin-bottom: 0.3rem;
 }

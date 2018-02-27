@@ -4,6 +4,7 @@ import KeysBox from '../components/KeysBox';
 import StartButton from './StartButton';
 import {connect} from 'react-redux';
 import SwitchIMButton from './SwitchIMButton';
+import ChatTimeline from '../components/ChatTimeline';
 
 const COLORS = [
   'red',
@@ -35,9 +36,13 @@ const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber}) => {
                 charPos={keyPos}
                 color={myColor}
             />
+            <ChatTimeline contents={[
+              'こんにちは',
+              'さようならさようならさようならさようならさようならさようならさようならさようなら',
+              'またあした',
+            ]} />
           </div>
         </div>
-
         <StartButton />
         <SwitchIMButton />
       </div>
