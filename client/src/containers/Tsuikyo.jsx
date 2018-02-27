@@ -9,6 +9,8 @@ class Tsuikyo extends React.Component {
     onFinish: PropTypes.func.isRequired,
     onReject: PropTypes.func.isRequired,
     onBeginWord: PropTypes.func.isRequired,
+
+    im: PropTypes.string.isRequired,
     hiragana: PropTypes.string.isRequired,
     identifier: PropTypes.string.isRequired,
   };
@@ -16,14 +18,7 @@ class Tsuikyo extends React.Component {
   constructor(props) {
     super(props);
     this.tsuikyo = null;
-  }
-
-  componentDidMount() {
-    this.tsuikyo = new window.Tsuikyo({
-      flex: 'flex',
-      prevent: true,
-      im: 'roma',
-    });
+    this.word = null;
   }
 
   componentWillUnmount() {
@@ -31,14 +26,33 @@ class Tsuikyo extends React.Component {
     this.tsuikyo.sleep();
   }
 
-  componentDidUpdate() {
-    if (this.word) this.word.sleep();
+  shouldComponentUpdate(nextProps) {
+    return nextProps.identifier !== this.props.identifier;
+  }
 
+  componentDidUpdate() {
     const {hiragana, onBeginWord} = this.props;
     if (hiragana) {
-      this.word = this.tsuikyo.make(hiragana).listen(e => this.handleStroke(e));
+      this.refreshWord(hiragana);
       onBeginWord(this.word);
     }
+  }
+
+  refreshTsuikyo() {
+    // 新しくつくる前に sleep しないと多重にキーイベントを拾っちゃう
+    if (this.tsuikyo) this.tsuikyo.sleep();
+    this.tsuikyo = new window.Tsuikyo({
+      flex: 'flex',
+      prevent: true,
+      im: this.props.im,
+    });
+  }
+
+  refreshWord(hiragana) {
+    // 新しくつくる前に sleep しないと多重にキーイベントを拾っちゃう
+    if (this.word) this.word.sleep();
+    this.refreshTsuikyo();
+    this.word = this.tsuikyo.make(hiragana).listen(e => this.handleStroke(e));
   }
 
   handleStroke(e) {
@@ -75,6 +89,7 @@ class Tsuikyo extends React.Component {
 
 export default connect(
     state => ({
+      im: state.im,
       hiragana: state.kana || '',
       // 2行同じ歌詞が連続で来たとき対策
       identifier: `${state.page} ${state.rowPos}`,
