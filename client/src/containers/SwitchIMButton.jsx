@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import {pushSwitchIMButton} from '../actions';
 
 const SwitchIMButton = ({im, handleClick}) => {
-  let displayIM;
-  if (im === 'roma') displayIM = 'ローマ字';
-  if (im === 'jis') displayIM = 'かな';
+  let imHumanized;
+  if (im === 'roma') imHumanized = 'ローマ字';
+  if (im === 'jis') imHumanized = 'かな';
 
   return (
       <button onClick={() => handleClick()}>
-        {displayIM}
+        {imHumanized}
       </button>
   );
 };
