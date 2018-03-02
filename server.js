@@ -33,7 +33,7 @@ io.on('connection', socket => {
   });
 
   socket.on('newChat', ({message}) => {
-    io.emit('newChat', {message});
+    socket.broadcast.emit('newChat', {message});
   });
 });
 

@@ -2,7 +2,7 @@ import {
   ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD, LYRIC_TRANSITION,
   NEW_CHAT,
   OTHERS_ACCEPT_STROKE, PUSH_SWITCH_IM_BUTTON,
-  REJECT_STROKE, START_GAME,
+  REJECT_STROKE, SEND_CHAT, START_GAME,
 } from './actions';
 import xorshift from 'xorshift';
 
@@ -142,6 +142,7 @@ export default (state = {
       };
     }
 
+    case SEND_CHAT:
     case NEW_CHAT: {
       const {message} = action.payload;
       const chatPosts = state.chatPosts.slice();
