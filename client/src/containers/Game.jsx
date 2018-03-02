@@ -18,7 +18,7 @@ const COLORS = [
   'gray',
 ];
 
-const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber}) => {
+const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber, chatPosts}) => {
   const myColor = COLORS[playerNumber];
   const lyricColors = assignments.map(a => COLORS[a]);
   const background = `url("/img/frame_${myColor}.png") top left / contain no-repeat, url("/img/frame.png") top left / contain no-repeat`;
@@ -37,11 +37,7 @@ const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber}) => {
                 charPos={keyPos}
                 color={myColor}
             />
-            <ChatTimeline contents={[
-              'こんにちは',
-              'さようならさようならさようならさようならさようならさようならさようならさようなら',
-              'またあした',
-            ]} />
+            <ChatTimeline contents={chatPosts} />
             <ChatInput />
           </div>
         </div>
@@ -59,5 +55,6 @@ export default connect(
       keys: state.keys,
       keyPos: state.keyPos,
       playerNumber: state.playerNumber,
+      chatPosts: state.chatPosts,
     }),
 )(Game);
