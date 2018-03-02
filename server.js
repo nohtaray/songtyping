@@ -31,6 +31,10 @@ io.on('connection', socket => {
   socket.on('acceptStroke', ({rowPos, kanaPos}) => {
     socket.broadcast.emit('acceptStroke', {rowPos, kanaPos});
   });
+
+  socket.on('newChat', ({message}) => {
+    io.emit('newChat', {message});
+  });
 });
 
 http.listen(PORT, () => {

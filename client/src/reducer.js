@@ -1,5 +1,6 @@
 import {
   ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD, LYRIC_TRANSITION,
+  NEW_CHAT,
   OTHERS_ACCEPT_STROKE, PUSH_SWITCH_IM_BUTTON,
   REJECT_STROKE, START_GAME,
 } from './actions';
@@ -138,6 +139,17 @@ export default (state = {
       return {
         ...state,
         kanaPoses,
+      };
+    }
+
+    case NEW_CHAT: {
+      const {message} = action.payload;
+      const chatPosts = state.chatPosts.slice();
+      chatPosts.push(message);
+
+      return {
+        ...state,
+        chatPosts,
       };
     }
     default:
