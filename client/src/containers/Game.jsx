@@ -35,10 +35,9 @@ const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber}) => {
                 charPos={keyPos}
                 color={myColor}
             />
+            <StartButton />
           </div>
         </div>
-
-        <StartButton />
         <SwitchIMButton />
       </div>
   );

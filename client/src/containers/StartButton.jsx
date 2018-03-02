@@ -4,9 +4,7 @@ import {pushStartButton} from '../actions';
 
 const StartButton = ({handleClick}) => {
   return (
-      <button onClick={() => handleClick()}>
-        すたーと
-      </button>
+      <button className="start_button" onClick={() => handleClick()} />
   );
 };
 
