@@ -158,6 +158,8 @@ https://qiita.com/ryounagaoka/items/a98f59347ed758743b8d#div%E3%82%84p%E3%81%AA%
 }
 
 .chat_input input {
+  font-family: "PixelMplus12-Regular.ttf";
+
   box-sizing: border-box;
   width: 100%;
   height: 100%;
