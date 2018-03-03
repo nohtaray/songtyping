@@ -32,8 +32,8 @@ io.on('connection', socket => {
     socket.broadcast.emit('acceptStroke', {rowPos, kanaPos});
   });
 
-  socket.on('newChat', ({message}) => {
-    socket.broadcast.emit('newChat', {message});
+  socket.on('chat', ({message}) => {
+    socket.broadcast.emit('chat', {message});
   });
 });
 
