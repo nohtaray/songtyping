@@ -49,11 +49,7 @@ export default (state = {
 
   audioSrc: '/audio/romeo_and_cinderella.mp3',
 
-  chatPosts: [
-    'こんにちは',
-    'さようならさようならさようならさようならさようならさようならさようならさようなら',
-    'またあした',
-  ],
+  chatPosts: [],
 }, action) => {
   switch (action.type) {
     case PUSH_SWITCH_IM_BUTTON:
