@@ -17,13 +17,13 @@ const ChatPost = ({content}) => {
  * @returns {*}
  */
 export default ({contents}) => {
-  const posts = contents.map((content) => {
-    return <ChatPost content={content} />
+  const posts = contents.map((content, i) => {
+    return <ChatPost key={`${i} ${content}`} content={content} />;
   });
 
   return (
       <div className="chat_timeline">
         {posts}
       </div>
-  )
+  );
 };
