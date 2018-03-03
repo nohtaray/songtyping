@@ -12,7 +12,7 @@ class Tsuikyo extends React.Component {
 
     im: PropTypes.string.isRequired,
     hiragana: PropTypes.string.isRequired,
-    identifier: PropTypes.string.isRequired,
+    rowId: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -26,11 +26,10 @@ class Tsuikyo extends React.Component {
     this.tsuikyo.sleep();
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.identifier !== this.props.identifier;
-  }
+  componentDidUpdate(prevProps) {
+    // ワードが変わってなかったら何もしない
+    if (prevProps.rowId === this.props.rowId) return;
 
-  componentDidUpdate() {
     const {hiragana, onBeginWord} = this.props;
     if (hiragana) {
       this.refreshWord(hiragana);
@@ -92,7 +91,7 @@ export default connect(
       im: state.im,
       hiragana: state.kana || '',
       // 2行同じ歌詞が連続で来たとき対策
-      identifier: `${state.page} ${state.rowPos}`,
+      rowId: `${state.page} ${state.rowPos}`,
     }),
     dispatch => ({
       onBeginWord: tw => dispatch(beginWord({
