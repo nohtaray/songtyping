@@ -11,7 +11,7 @@ class ChatInput extends React.Component {
   handleKeyDown(e) {
     const content = e.target.value;
     const empty = !!content.match(/^\s*$/g);
-    if (!empty && e.key === 'Enter') {
+    if (!empty && e.keyCode === 13) {  // Enter
       this.props.handlePressEnter(content);
       e.target.value = '';
     }
