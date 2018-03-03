@@ -1,4 +1,5 @@
 import React from 'react';
+import {PropTypes} from 'prop-types';
 
 /**
  * @param content {string}
@@ -16,14 +17,32 @@ const ChatPost = ({content}) => {
  * @param contents {string[]}
  * @returns {*}
  */
-export default ({contents}) => {
-  const posts = contents.map((content, i) => {
-    return <ChatPost key={`${i} ${content}`} content={content} />;
-  });
+export default class extends React.Component {
+  static propTypes = {
+    contents: PropTypes.arrayOf(PropTypes.string).isRequired,
+  };
 
-  return (
-      <div className="chat_timeline">
-        {posts}
-      </div>
-  );
+  constructor(props) {
+    super(props);
+    this.ref = null;
+  }
+
+  componentDidUpdate() {
+    // 下までスクロール
+    this.ref.scrollTop = this.ref.scrollHeight;
+  }
+
+  render() {
+    const {contents} = this.props;
+
+    const posts = contents.map((content, i) => {
+      return <ChatPost key={`${i} ${content}`} content={content} />;
+    });
+
+    return (
+        <div className="chat_timeline" ref={ref => this.ref = ref}>
+          {posts}
+        </div>
+    );
+  }
 };

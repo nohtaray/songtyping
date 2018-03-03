@@ -139,9 +139,11 @@ https://qiita.com/ryounagaoka/items/a98f59347ed758743b8d#div%E3%82%84p%E3%81%AA%
   width: 55.2%;
   height: 21.5%;
 
-  padding: 1vw;
+  padding: 1vw 1vw 0;
 
   font-size: 1.6vw;
+
+  overflow-y: scroll;
 }
 
 .chat_post {
