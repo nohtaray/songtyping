@@ -1,8 +1,17 @@
 import {
-  ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD, LYRIC_TRANSITION,
+  ACCEPT_STROKE,
+  BEGIN_WORD,
+  BLUR_CHAT,
+  COMPLETE_LOAD_LYRIC,
+  FINISH_WORD,
+  FOCUS_CHAT,
+  LYRIC_TRANSITION,
   NEW_CHAT,
-  OTHERS_ACCEPT_STROKE, PUSH_SWITCH_IM_BUTTON,
-  REJECT_STROKE, SEND_CHAT, START_GAME,
+  OTHERS_ACCEPT_STROKE,
+  PUSH_SWITCH_IM_BUTTON,
+  REJECT_STROKE,
+  SEND_CHAT,
+  START_GAME,
 } from './actions';
 import xorshift from 'xorshift';
 
@@ -34,6 +43,7 @@ function nextRowPos(pageAssignments, playerNumber, typedRowCount) {
 
 export default (state = {
   im: 'roma',
+  shouldCaptureKeyStroke: true,
   allLyrics: [],
   lyrics: [],
   page: 0,
@@ -149,6 +159,13 @@ export default (state = {
         chatPosts,
       };
     }
+    case FOCUS_CHAT: {
+      return {...state, shouldCaptureKeyStroke: false};
+    }
+    case BLUR_CHAT: {
+      return {...state, shouldCaptureKeyStroke: true};
+    }
+
     default:
       return state;
   }

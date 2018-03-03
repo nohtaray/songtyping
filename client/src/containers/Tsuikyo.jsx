@@ -12,6 +12,7 @@ class Tsuikyo extends React.Component {
 
     im: PropTypes.string.isRequired,
     hiragana: PropTypes.string.isRequired,
+    shouldCapture: PropTypes.bool.isRequired,
     rowId: PropTypes.string.isRequired,
   };
 
@@ -27,6 +28,8 @@ class Tsuikyo extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    this.updateCapturingStatus();
+
     // ワードが変わってなかったら何もしない
     if (prevProps.rowId === this.props.rowId) return;
 
@@ -45,6 +48,7 @@ class Tsuikyo extends React.Component {
       prevent: true,
       im: this.props.im,
     });
+    this.updateCapturingStatus();
   }
 
   refreshWord(hiragana) {
@@ -81,6 +85,14 @@ class Tsuikyo extends React.Component {
     }
   }
 
+  /**
+   * props.shouldCapture を見てキーイベントを拾う拾わないを切り替える
+   */
+  updateCapturingStatus() {
+    if (!this.tsuikyo) return;
+    this.props.shouldCapture ? this.tsuikyo.listen() : this.tsuikyo.sleep();
+  }
+
   render() {
     return '';
   }
@@ -90,6 +102,7 @@ export default connect(
     state => ({
       im: state.im,
       hiragana: state.kana || '',
+      shouldCapture: state.shouldCaptureKeyStroke,
       // 2行同じ歌詞が連続で来たとき対策
       rowId: `${state.page} ${state.rowPos}`,
     }),
