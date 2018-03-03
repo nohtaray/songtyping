@@ -4,6 +4,8 @@ import KeysBox from '../components/KeysBox';
 import StartButton from './StartButton';
 import {connect} from 'react-redux';
 import SwitchIMButton from './SwitchIMButton';
+import ChatInput from './ChatInput';
+import ChatTimeline from '../components/ChatTimeline';
 
 const COLORS = [
   'red',
@@ -16,7 +18,7 @@ const COLORS = [
   'gray',
 ];
 
-const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber}) => {
+const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber, chatPosts}) => {
   const myColor = COLORS[playerNumber];
   const lyricColors = assignments.map(a => COLORS[a]);
   const background = `url("/img/frame_${myColor}.png") top left / contain no-repeat, url("/img/frame.png") top left / contain no-repeat`;
@@ -35,6 +37,8 @@ const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber}) => {
                 charPos={keyPos}
                 color={myColor}
             />
+            <ChatTimeline contents={chatPosts} />
+            <ChatInput />
             <StartButton />
           </div>
         </div>
@@ -51,5 +55,6 @@ export default connect(
       keys: state.keys,
       keyPos: state.keyPos,
       playerNumber: state.playerNumber,
+      chatPosts: state.chatPosts,
     }),
 )(Game);

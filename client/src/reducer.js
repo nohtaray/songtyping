@@ -1,7 +1,17 @@
 import {
-  ACCEPT_STROKE, BEGIN_WORD, COMPLETE_LOAD_LYRIC, FINISH_WORD, LYRIC_TRANSITION,
-  OTHERS_ACCEPT_STROKE, PUSH_SWITCH_IM_BUTTON,
-  REJECT_STROKE, START_GAME,
+  ACCEPT_STROKE,
+  BEGIN_WORD,
+  BLUR_CHAT,
+  COMPLETE_LOAD_LYRIC,
+  FINISH_WORD,
+  FOCUS_CHAT,
+  LYRIC_TRANSITION,
+  NEW_CHAT,
+  OTHERS_ACCEPT_STROKE,
+  PUSH_SWITCH_IM_BUTTON,
+  REJECT_STROKE,
+  SEND_CHAT,
+  START_GAME,
 } from './actions';
 import xorshift from 'xorshift';
 
@@ -33,6 +43,7 @@ function nextRowPos(pageAssignments, playerNumber, typedRowCount) {
 
 export default (state = {
   im: 'roma',
+  shouldCaptureKeyStroke: true,
   allLyrics: [],
   lyrics: [],
   page: 0,
@@ -47,6 +58,8 @@ export default (state = {
   typedRowCount: 0,
 
   audioSrc: '/audio/romeo_and_cinderella.mp3',
+
+  chatPosts: [],
 }, action) => {
   switch (action.type) {
     case PUSH_SWITCH_IM_BUTTON:
@@ -134,6 +147,25 @@ export default (state = {
         kanaPoses,
       };
     }
+
+    case SEND_CHAT:
+    case NEW_CHAT: {
+      const {message} = action.payload;
+      const chatPosts = state.chatPosts.slice();
+      chatPosts.push(message);
+
+      return {
+        ...state,
+        chatPosts,
+      };
+    }
+    case FOCUS_CHAT: {
+      return {...state, shouldCaptureKeyStroke: false};
+    }
+    case BLUR_CHAT: {
+      return {...state, shouldCaptureKeyStroke: true};
+    }
+
     default:
       return state;
   }

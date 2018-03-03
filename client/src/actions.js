@@ -15,6 +15,11 @@ export const CAN_PLAY_THROUGH_AUDIO = '@@app/CAN_PLAY_THROUGH_AUDIO';
 export const COMPLETE_LOAD_LYRIC = '@@app/COMPLETE_LOAD_LYRIC';
 export const LYRIC_TRANSITION = '@@app/LYRIC_TRANSITION';
 
+export const SEND_CHAT = '@@app/SEND_CHAT';
+export const NEW_CHAT = '@@app/NEW_CHAT';
+export const FOCUS_CHAT = '@@app/FOCUS_CHAT';
+export const BLUR_CHAT = '@@app/BLUR_CHAT';
+
 export const pushStartButton = createAction(
     PUSH_START_BUTTON,
 );
@@ -59,4 +64,19 @@ export const completeLoadLyric = createAction(
 export const lyricTransition = createAction(
     LYRIC_TRANSITION,
     page => page,
+);
+
+export const sendChat = createAction(
+    SEND_CHAT,
+    ({message}) => ({message}),
+);
+export const newChat = createAction(
+    NEW_CHAT,
+    ({message}) => ({message}),
+);
+export const focusChat = createAction(
+    FOCUS_CHAT,
+);
+export const blurChat = createAction(
+    BLUR_CHAT,
 );
