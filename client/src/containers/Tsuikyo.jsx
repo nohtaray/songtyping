@@ -33,6 +33,9 @@ class Tsuikyo extends React.Component {
     // ワードが変わってなかったら何もしない
     if (prevProps.rowId === this.props.rowId) return;
 
+    // hiragana はなくても sleep しないと前のワードが残る
+    if (this.word) this.word.sleep();
+
     const {hiragana, onBeginWord} = this.props;
     if (hiragana) {
       this.refreshWord(hiragana);

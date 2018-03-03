@@ -170,3 +170,17 @@ https://qiita.com/ryounagaoka/items/a98f59347ed758743b8d#div%E3%82%84p%E3%81%AA%
   border-style: none;
   font-size: 1.6vw;
 }
+
+.start_button {
+  position: absolute;
+  box-sizing: border-box;
+  left: 63.8%;
+  top: 48.2%;
+  width: 9%;
+  height: 5.8%;
+
+  border-style: none;
+  outline: none;
+
+  background: url("/img/start.png") top left / contain no-repeat
+}

@@ -39,9 +39,9 @@ const Game = ({lyrics, kanaPoses, assignments, keys, keyPos, playerNumber, chatP
             />
             <ChatTimeline contents={chatPosts} />
             <ChatInput />
+            <StartButton />
           </div>
         </div>
-        <StartButton />
         <SwitchIMButton />
       </div>
   );
